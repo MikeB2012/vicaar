@@ -18,6 +18,9 @@
   "homepage": "https://github.com/MikeB2012/vicaar#readme",
   "dependencies": {
     "brain.js": "^1.0.0-rc.3",
-    "minimist": "^1.2.0"
+    "csv-parse": "^1.2.4",
+    "minimist": "^1.2.0",
+    "ndjson": "^1.5.0",
+    "through2-map": "^3.0.0"
   }
 }
