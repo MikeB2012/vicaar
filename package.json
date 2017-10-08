@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/MikeB2012/vicaar/issues"
   },
-  "homepage": "https://github.com/MikeB2012/vicaar#readme"
+  "homepage": "https://github.com/MikeB2012/vicaar#readme",
+  "dependencies": {
+    "brain.js": "^1.0.0-rc.3",
+    "minimist": "^1.2.0"
+  }
 }
