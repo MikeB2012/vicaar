@@ -23,5 +23,9 @@
     "minimist": "^1.2.0",
     "ndjson": "^1.5.0",
     "through2-map": "^3.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.8.0",
+    "eslint-plugin-node": "^5.2.0"
   }
 }
