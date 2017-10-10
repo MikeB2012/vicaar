@@ -8,13 +8,17 @@ var nd = require("ndjson");
 var input = fs.createReadStream("../data/bezdekIris.data");
 var parse = csvparse({delimiter: ',', from: 2});
 function processRow(rowObject) {
-	var input = rowObject.reduce(function (acc, curr) {
-		acc = acc.concat(curr);
+	var length = rowObject.length;
+	var output = rowObject[length - 1];
+	var input = rowObject.reduce(function (acc, curr, index) {
+		if (index < length - 1) {
+			acc = acc.concat(curr);
+		}
 		return acc;
 	},[]);
 	var result = {
 		input: input,
-		output: input
+		output: output
 	};
 	return result;
 };
