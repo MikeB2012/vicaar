@@ -14,9 +14,13 @@ module.exports = {
 	train: train,
 };
 
-function load(location) {
-	if(!location)
-		return Promise.resolve(new NeuralNetwork());
+function load(location, options) {
+	if(!location) {
+		console.log("Creating new network", options);
+		return Promise.resolve(new NeuralNetwork(options));
+	}
+
+	console.log("Loading", location);
 
 	return fs.readFile(location, "utf8").then(function(json){
 		var parsed = JSON.parse(json);
@@ -27,12 +31,13 @@ function load(location) {
 }
 
 function save(location, net) {
+	console.log("Saving", location, data);
 	var data = net.toJSON();
-	var json = JSON.stringify(data);
+	var json = JSON.stringify(data, null, "\t");
 	return fs.writeFile(location, json, "utf8");
 }
 
-function run(net, data) {
+function run(depth, net, data) {
 	return fs.readFile(data).then(function(json){
 		var parsed = JSON.parse(json);
 		return net.run(parsed);
