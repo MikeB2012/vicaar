@@ -1,4 +1,5 @@
 "use strict";
+
 var fs = require("fs-extra");
 
 var eos = require("then-eos");

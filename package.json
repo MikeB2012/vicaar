@@ -23,6 +23,7 @@
     "minimist": "^1.2.0",
     "ndjson": "^1.5.0",
     "par": "^0.3.0",
+    "reduce-stream-to-promise": "^1.0.5",
     "then-eos": "^1.0.0",
     "through2-map": "^3.0.0"
   },

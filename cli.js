@@ -1,4 +1,5 @@
 "use strict";
+
 var par = require("par");
 var argv = require("minimist")(process.argv.slice(2));
 
