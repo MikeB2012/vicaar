@@ -48,7 +48,7 @@ reduceStream(function(result, item){
 		dataStream()
 			.pipe(map(par(processRow, whiteningCOnfig)))
 			.pipe(nd.serialize())
-			.pipe(fs.createWriteStream("../data/data.ndjson"))
+			.pipe(fs.createWriteStream("../data/processeddata.ndjson"))
 	}).catch(function(e){
 		console.error(e.stack);
 	});
