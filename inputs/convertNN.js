@@ -7,15 +7,17 @@ var nd = require("ndjson");
 var par = require("par")
 var reduceStream = require('reduce-stream-to-promise');
 
-function processRow( minmaxes, rowObject) {
-	var length = rowObject.length;
-	var output = rowObject[length - 1];
-	var row = rowObject.reduce(function (acc, curr, index) {
-		if (index < length - 1) {
-			acc = acc.concat(curr);
-		}
-		return acc;
-	},[]);
+function processRow( whiten, rowObject) {
+	var keys = Object.keys(whiten);
+	var rowKeys = Object.keys(rowObject);
+	var output = rowObject[rowKeys[rowKeys.length-1]];
+	var row = keys.map(function (key) {
+		var value = rowObject[key];
+		var min = whiten[key].min;
+		var max = whiten[key].max;
+		return rowObject[key] = (value - min)/(max - min);
+	});
+
 	var result = {
 		input: row,
 		output: output
@@ -40,12 +42,11 @@ reduceStream(function(result, item){
 		}
 		result[key] = current;
 	}
-	console.log("result: ", result);
 	return result;
 }, {}, dataStream())
 	.then(function(whiteningCOnfig){
 		dataStream()
-			.pipe(par(processRow, whiteningCOnfig))
+			.pipe(map(par(processRow, whiteningCOnfig)))
 			.pipe(nd.serialize())
 			.pipe(process.stdout);
 	}).catch(function(e){
@@ -54,6 +55,6 @@ reduceStream(function(result, item){
 
 function dataStream() {
 	var input = fs.createReadStream("../data/bezdekIris.data");
-	var parse = csvparse({delimiter: "," , from: 2, columns: true});
+	var parse = csvparse({delimiter: "," , columns: true});
 	return input.pipe(parse);
 }
